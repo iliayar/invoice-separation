@@ -8,18 +8,22 @@ import com.example.invoicesep.api.Debt
 import com.example.invoicesep.api.InvoiceSeparation
 import com.example.invoicesep.api.User
 import com.example.invoicesep.api.UserLogin
-import kotlinx.android.synthetic.main.activity_main.*
+import com.example.invoicesep.databinding.ActivityMainBinding
 import kotlinx.coroutines.launch
 import kotlinx.serialization.ExperimentalSerializationApi
 import retrofit2.Response
 
 @ExperimentalSerializationApi
 class MainActivity : AppCompatActivity() {
+    private lateinit var binding: ActivityMainBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
-        add.setOnClickListener { postContacts(listOf("Fedos")) }
-        view_contacts.setOnClickListener { getContacts() }
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        val view = binding.root
+        setContentView(view)
+        binding.add.setOnClickListener { postContacts(listOf("Fedos")) }
+        binding.viewContacts.setOnClickListener { getContacts() }
 
     }
 
@@ -35,7 +39,7 @@ class MainActivity : AppCompatActivity() {
                     makeToast("success")
                     onSuccess(response)
                 } else {
-                    makeToast("error")
+                    makeToast("error occurred, response code: ${response.code()}")
                     onFailure(response)
                 }
             } catch (t: Throwable) {

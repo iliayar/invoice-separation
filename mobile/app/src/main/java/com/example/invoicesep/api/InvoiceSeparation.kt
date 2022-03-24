@@ -1,8 +1,9 @@
 package com.example.invoicesep.api
 
-import kotlinx.android.parcel.Parcelize
+import android.os.Parcelable
+import kotlinx.parcelize.Parcelize
 import kotlinx.serialization.Serializable
 
 @Parcelize
 @Serializable
-class InvoiceSeparation(val invoice: Int, val users: List<String>)
+class InvoiceSeparation(val invoice: Int, val users: List<String>) : Parcelable

@@ -1,8 +1,9 @@
 package com.example.invoicesep.api
 
-import kotlinx.android.parcel.Parcelize
+import android.os.Parcelable
+import kotlinx.parcelize.Parcelize
 import kotlinx.serialization.Serializable
 
 @Parcelize
 @Serializable
-data class User(val info: String)
+data class User(val info: String) : Parcelable
