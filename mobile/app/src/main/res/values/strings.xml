@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">InvoiceSep</string>
+    <string name="name">Name</string>
+    <string name="invoice">invoice</string>
+    <string name="organise">Организовать \n встречу</string>
+    <string name="add_contact">Добавить \ контакт</string>
+    <string name="view_contacts">Посмотреть \n контакты</string>
+    <string name="view_history">Посмотреть \n историю</string>
+</resources>
