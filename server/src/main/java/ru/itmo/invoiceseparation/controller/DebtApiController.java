@@ -8,8 +8,8 @@ import ru.itmo.invoiceseparation.api.DebtApi;
 @RestController
 public class DebtApiController implements DebtApi {
 
-    public Integer debtGet(String userId) {
-        return Integer.parseInt(userId);
+    public String debtGet(String userId) {
+        return userId;
     }
 
     public ResponseEntity<Void> debtPost(String body) {

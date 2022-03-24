@@ -9,7 +9,7 @@ import javax.validation.Valid;
 import java.util.List;
 
 @Validated
-@Api(value = "contacts", description = "the contacts API")
+@Api(value = "contacts")
 @RequestMapping(value = "")
 public interface ContactsApi {
 
@@ -27,5 +27,5 @@ public interface ContactsApi {
             @ApiResponse(code = 403, message = "Unauthorized"),
             @ApiResponse(code = 404, message = "No such user")})
     @PostMapping(value = "/contacts")
-    ResponseEntity<Void> contactsPost(@ApiParam(required = true) @Valid @RequestBody String body);
+    ResponseEntity<Void> contactsPost(@ApiParam(required = true) @Valid @RequestBody List<String> contacts);
 }

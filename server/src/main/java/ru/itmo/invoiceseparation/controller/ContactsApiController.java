@@ -14,7 +14,7 @@ public class ContactsApiController implements ContactsApi {
         return List.of("1", "2", "3");
     }
 
-    public ResponseEntity<Void> contactsPost(String body) {
+    public ResponseEntity<Void> contactsPost(List<String> contacts) {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 }

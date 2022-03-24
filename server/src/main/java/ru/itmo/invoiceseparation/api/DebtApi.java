@@ -17,7 +17,7 @@ public interface DebtApi {
             @ApiResponse(code = 403, message = "Unauthorized"),
             @ApiResponse(code = 404, message = "No such user. If any user in list is missing")})
     @GetMapping(value = "/{userId}")
-    Integer debtGet(@NotNull @ApiParam(value = "User Id", required = true) @Valid @PathVariable String userId);
+    String debtGet(@NotNull @ApiParam(value = "User Id", required = true) @Valid @PathVariable String userId);
 
     @ApiOperation(value = "", nickname = "debtPost", tags = {})
     @ApiResponses(value = {
