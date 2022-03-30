@@ -11,7 +11,7 @@ import java.util.List;
 public class ContactsApiController implements ContactsApi {
 
     public List<String> contactsGet() {
-        return List.of("1", "2", "3");
+        return List.of("1", "2", "3", "aboba");
     }
 
     public ResponseEntity<Void> contactsPost(List<String> contacts) {
