@@ -13,6 +13,9 @@ import javax.validation.constraints.*;
  * Credentials
  */
 @Validated
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2022-04-20T21:31:56.700+03:00")
+
+
 public class Credentials   {
   @JsonProperty("login")
   private String login = null;

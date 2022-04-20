@@ -15,6 +15,7 @@
             devShell = pkgs.mkShell {
               buildInputs = with pkgs; [
                 openjdk11
+                swagger-codegen
               ];
             };
           }

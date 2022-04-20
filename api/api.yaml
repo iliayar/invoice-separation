@@ -1,0 +1,146 @@
+swagger: '2.0'
+basePath: /
+info:
+    title: Invoice separation
+    description: TODO
+    version: '1.0'
+
+securityDefinitions:
+  ApiKeyAuth:
+    type: apiKey
+    in: header
+    name: X-Api-Key
+
+paths:
+
+  /user/register:
+    post:
+      parameters:
+        - name: body
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/Credentials'
+      responses:
+        '200':
+          description: Success
+        '401':
+          description: Invalid credentials
+
+  /user/login:
+    post:
+      parameters:
+        - name: body
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/Credentials'
+      responses:
+        '200':
+          description: Success
+        '401':
+          description: Invalid credentials
+        '403':
+          description: No such user or password missmatch
+
+  /contacts:
+    post:
+      parameters:
+        - name: body
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/Contact'
+      responses:
+        '200':
+          description: Ok
+        '403':
+          description: Unauthorized
+        '404':
+          description: No such user
+    get:
+      responses:
+        '200':
+          description: List of all contacts
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Contact'
+        '403':
+          description: Unauthorized
+
+  /invoice-separation:
+    post:
+      parameters:
+        - name: body
+          in: body
+          required: true
+          schema:
+            type: object
+            properties:
+              invoice:
+                type: integer
+                description: Amount of money spent
+              users:
+                type: array
+                items: 
+                  $ref: '#/definitions/Contact'
+                description: Users to split money between
+      responses:
+        '200':
+          description: Ok
+        '403':
+          description: Unauthorized
+        '404':
+          description: No such user. If any user in list is missing
+
+  /debt:
+    post:
+      parameters:
+        - name: body
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/Contact'
+      responses:
+        '200':
+          description: Ok
+        '403':
+          description: Unauthorized
+        '404':
+          description: No such user. If any user in list is missing
+    get:
+      parameters:
+        - name: user
+          in: query
+          required: true
+          type: string
+          description: User Id
+      responses:
+        '200':
+          description: Ok.
+          schema:
+            type: integer
+            description: The amount of money owed to user
+        '403':
+          description: Unauthorized
+        '404':
+          description: No such user. If any user in list is missing
+      
+
+definitions:
+
+  Credentials:
+    type: object
+    properties: 
+      login:
+        type: string
+      password:
+        type: string
+    required:
+      - login
+      - password
+
+  Contact:
+    type: string
+    description: User Id
