@@ -21,21 +21,21 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.validation.Valid;
 import javax.validation.constraints.*;
 import java.util.List;
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2022-04-20T21:31:56.700+03:00")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2022-04-20T23:25:57.807+03:00")
 
 @Validated
 @Api(value = "user", description = "the user API")
 @RequestMapping(value = "")
 public interface UserApi {
 
-    @ApiOperation(value = "", nickname = "userLoginPost", notes = "", tags={  })
+    @ApiOperation(value = "", nickname = "userLoginPost", notes = "", response = String.class, tags={  })
     @ApiResponses(value = { 
-        @ApiResponse(code = 200, message = "Success"),
+        @ApiResponse(code = 200, message = "Success", response = String.class),
         @ApiResponse(code = 401, message = "Invalid credentials"),
         @ApiResponse(code = 403, message = "No such user or password missmatch") })
     @RequestMapping(value = "/user/login",
         method = RequestMethod.POST)
-    ResponseEntity<Void> userLoginPost(@ApiParam(value = "" ,required=true )  @Valid @RequestBody Credentials body);
+    ResponseEntity<String> userLoginPost(@ApiParam(value = "" ,required=true )  @Valid @RequestBody Credentials body);
 
 
     @ApiOperation(value = "", nickname = "userRegisterPost", notes = "", tags={  })

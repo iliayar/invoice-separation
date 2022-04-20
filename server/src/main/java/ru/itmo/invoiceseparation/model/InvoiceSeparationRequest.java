@@ -12,13 +12,13 @@ import javax.validation.Valid;
 import javax.validation.constraints.*;
 
 /**
- * Body
+ * InvoiceSeparationRequest
  */
 @Validated
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2022-04-20T21:31:56.700+03:00")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2022-04-20T23:25:57.807+03:00")
 
 
-public class Body   {
+public class InvoiceSeparationRequest   {
   @JsonProperty("invoice")
   private Integer invoice = null;
 
@@ -26,7 +26,7 @@ public class Body   {
   @Valid
   private List<String> users = null;
 
-  public Body invoice(Integer invoice) {
+  public InvoiceSeparationRequest invoice(Integer invoice) {
     this.invoice = invoice;
     return this;
   }
@@ -46,12 +46,12 @@ public class Body   {
     this.invoice = invoice;
   }
 
-  public Body users(List<String> users) {
+  public InvoiceSeparationRequest users(List<String> users) {
     this.users = users;
     return this;
   }
 
-  public Body addUsersItem(String usersItem) {
+  public InvoiceSeparationRequest addUsersItem(String usersItem) {
     if (this.users == null) {
       this.users = new ArrayList<String>();
     }
@@ -83,9 +83,9 @@ public class Body   {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    Body body = (Body) o;
-    return Objects.equals(this.invoice, body.invoice) &&
-        Objects.equals(this.users, body.users);
+    InvoiceSeparationRequest invoiceSeparationRequest = (InvoiceSeparationRequest) o;
+    return Objects.equals(this.invoice, invoiceSeparationRequest.invoice) &&
+        Objects.equals(this.users, invoiceSeparationRequest.users);
   }
 
   @Override
@@ -96,7 +96,7 @@ public class Body   {
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class Body {\n");
+    sb.append("class InvoiceSeparationRequest {\n");
     
     sb.append("    invoice: ").append(toIndentedString(invoice)).append("\n");
     sb.append("    users: ").append(toIndentedString(users)).append("\n");

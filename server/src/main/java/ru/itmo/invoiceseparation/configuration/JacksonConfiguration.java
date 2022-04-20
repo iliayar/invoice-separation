@@ -1,4 +1,4 @@
-package io.swagger.configuration;
+package ru.itmo.invoiceseparation.configuration;
 
 import com.fasterxml.jackson.datatype.threetenbp.ThreeTenModule;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;

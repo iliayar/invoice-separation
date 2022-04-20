@@ -1,4 +1,4 @@
-package io.swagger;
+package ru.itmo.invoiceseparation;
 
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.ExitCodeGenerator;
@@ -10,7 +10,7 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 @SpringBootApplication
 @EnableSwagger2
-@ComponentScan(basePackages = { "io.swagger", "ru.itmo.invoiceseparation.api" , "io.swagger.configuration"})
+// @ComponentScan(basePackages = { "ru.itmo.invoiceseparation", "ru.itmo.invoiceseparation.api" , "ru.itmo.invoiceseparation.configuration"})
 public class Swagger2SpringBoot implements CommandLineRunner {
 
     @Override

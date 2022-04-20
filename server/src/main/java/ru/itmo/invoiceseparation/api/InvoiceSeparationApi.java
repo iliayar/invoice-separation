@@ -5,7 +5,7 @@
  */
 package ru.itmo.invoiceseparation.api;
 
-import ru.itmo.invoiceseparation.model.Body;
+import ru.itmo.invoiceseparation.model.InvoiceSeparationRequest;
 import io.swagger.annotations.*;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
@@ -21,7 +21,7 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.validation.Valid;
 import javax.validation.constraints.*;
 import java.util.List;
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2022-04-20T21:31:56.700+03:00")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2022-04-20T23:25:57.807+03:00")
 
 @Validated
 @Api(value = "invoice-separation", description = "the invoice-separation API")
@@ -35,6 +35,6 @@ public interface InvoiceSeparationApi {
         @ApiResponse(code = 404, message = "No such user. If any user in list is missing") })
     @RequestMapping(value = "/invoice-separation",
         method = RequestMethod.POST)
-    ResponseEntity<Void> invoiceSeparationPost(@ApiParam(value = "" ,required=true )  @Valid @RequestBody Body body);
+    ResponseEntity<Void> invoiceSeparationPost(@ApiParam(value = "" ,required=true )  @Valid @RequestBody InvoiceSeparationRequest body);
 
 }

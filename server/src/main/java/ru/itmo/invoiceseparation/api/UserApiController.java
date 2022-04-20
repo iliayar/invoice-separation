@@ -1,10 +1,16 @@
 package ru.itmo.invoiceseparation.api;
 
+import ru.itmo.invoiceseparation.model.ApiToken;
+import ru.itmo.invoiceseparation.model.ApiTokenRepository;
 import ru.itmo.invoiceseparation.model.Credentials;
+import ru.itmo.invoiceseparation.model.User;
+import ru.itmo.invoiceseparation.model.UserRepository;
+
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.swagger.annotations.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -20,7 +26,7 @@ import javax.validation.Valid;
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 import java.util.List;
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2022-04-20T21:26:41.138+03:00")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2022-04-20T23:25:57.807+03:00")
 
 @Controller
 public class UserApiController implements UserApi {
@@ -31,20 +37,50 @@ public class UserApiController implements UserApi {
 
     private final HttpServletRequest request;
 
+    // @Autowired
+    // private UserRepository userRepository;
+    // @Autowired
+    // private ApiTokenRepository apiTokenRepository;
+
     @org.springframework.beans.factory.annotation.Autowired
     public UserApiController(ObjectMapper objectMapper, HttpServletRequest request) {
         this.objectMapper = objectMapper;
         this.request = request;
     }
 
-    public ResponseEntity<Void> userLoginPost(@ApiParam(value = "" ,required=true )  @Valid @RequestBody Credentials body) {
+    public ResponseEntity<String> userLoginPost(@ApiParam(value = "" ,required=true )  @Valid @RequestBody Credentials body) {
         String accept = request.getHeader("Accept");
-        return new ResponseEntity<Void>(HttpStatus.NOT_IMPLEMENTED);
+        if (accept != null && accept.contains("application/json")) {
+            try {
+                return new ResponseEntity<String>(objectMapper.readValue("\"\"", String.class), HttpStatus.NOT_IMPLEMENTED);
+            } catch (IOException e) {
+                log.error("Couldn't serialize response for content type application/json", e);
+                return new ResponseEntity<String>(HttpStatus.INTERNAL_SERVER_ERROR);
+            }
+        }
+
+        return new ResponseEntity<String>(HttpStatus.NOT_IMPLEMENTED);
     }
 
     public ResponseEntity<Void> userRegisterPost(@ApiParam(value = "" ,required=true )  @Valid @RequestBody Credentials body) {
         String accept = request.getHeader("Accept");
         return new ResponseEntity<Void>(HttpStatus.NOT_IMPLEMENTED);
     }
+
+    // public ResponseEntity<String> userLoginPost(
+    //         @ApiParam(value = "", required = true) @Valid @RequestBody Credentials body) {
+    //     User user = userRepository.findByUsername(body.getLogin());
+    //     if (user.validatePassword(body.getPassword())) {
+    //         ApiToken token = apiTokenRepository.findByUser(user);
+    //         return new ResponseEntity<String>(token.getToken(), HttpStatus.OK);
+    //     }
+    //     return new ResponseEntity<String>(HttpStatus.UNAUTHORIZED);
+    // }
+
+    // public ResponseEntity<Void> userRegisterPost(@ApiParam(value = "" ,required=true )  @Valid @RequestBody Credentials body) {
+    //     User user = new User(body.getLogin(), body.getPassword());
+    //     userRepository.save(user);
+    //     return new ResponseEntity<Void>(HttpStatus.OK);
+    // }
 
 }

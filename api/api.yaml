@@ -38,6 +38,9 @@ paths:
       responses:
         '200':
           description: Success
+          schema:
+            type: string
+            description: User API Token
         '401':
           description: Invalid credentials
         '403':
@@ -50,7 +53,9 @@ paths:
           in: body
           required: true
           schema:
-            $ref: '#/definitions/Contact'
+            type: array
+            items: 
+              type: string
       responses:
         '200':
           description: Ok
@@ -65,7 +70,7 @@ paths:
           schema:
             type: array
             items:
-              $ref: '#/definitions/Contact'
+              type: string
         '403':
           description: Unauthorized
 
@@ -76,16 +81,7 @@ paths:
           in: body
           required: true
           schema:
-            type: object
-            properties:
-              invoice:
-                type: integer
-                description: Amount of money spent
-              users:
-                type: array
-                items: 
-                  $ref: '#/definitions/Contact'
-                description: Users to split money between
+            $ref: "#/definitions/InvoiceSeparationRequest"
       responses:
         '200':
           description: Ok
@@ -101,7 +97,9 @@ paths:
           in: body
           required: true
           schema:
-            $ref: '#/definitions/Contact'
+            type: string
+      security:
+        - ApiKeyAtuh: []
       responses:
         '200':
           description: Ok
@@ -141,6 +139,15 @@ definitions:
       - login
       - password
 
-  Contact:
-    type: string
-    description: User Id
+
+  InvoiceSeparationRequest:
+    type: object
+    properties:
+      invoice:
+        type: integer
+        description: Amount of money spent
+      users:
+        type: array
+        items: 
+          type: string
+        description: Users to split money between

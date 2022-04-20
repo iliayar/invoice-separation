@@ -5,6 +5,7 @@
  */
 package ru.itmo.invoiceseparation.api;
 
+import java.util.List;
 import io.swagger.annotations.*;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
@@ -20,7 +21,7 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.validation.Valid;
 import javax.validation.constraints.*;
 import java.util.List;
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2022-04-20T21:31:56.700+03:00")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2022-04-20T23:25:57.807+03:00")
 
 @Validated
 @Api(value = "contacts", description = "the contacts API")
@@ -43,6 +44,6 @@ public interface ContactsApi {
         @ApiResponse(code = 404, message = "No such user") })
     @RequestMapping(value = "/contacts",
         method = RequestMethod.POST)
-    ResponseEntity<Void> contactsPost(@ApiParam(value = "" ,required=true )  @Valid @RequestBody String body);
+    ResponseEntity<Void> contactsPost(@ApiParam(value = "" ,required=true )  @Valid @RequestBody List<String> body);
 
 }

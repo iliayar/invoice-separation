@@ -1,4 +1,4 @@
-package io.swagger.configuration;
+package ru.itmo.invoiceseparation.configuration;
 
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.JsonTokenId;

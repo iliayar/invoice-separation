@@ -1,5 +1,6 @@
 package ru.itmo.invoiceseparation.api;
 
+import java.util.List;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.swagger.annotations.*;
 import org.slf4j.Logger;
@@ -19,7 +20,7 @@ import javax.validation.Valid;
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 import java.util.List;
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2022-04-20T21:26:41.138+03:00")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2022-04-20T23:25:57.807+03:00")
 
 @Controller
 public class ContactsApiController implements ContactsApi {
@@ -40,7 +41,7 @@ public class ContactsApiController implements ContactsApi {
         String accept = request.getHeader("Accept");
         if (accept != null && accept.contains("application/json")) {
             try {
-                return new ResponseEntity<List<String>>(objectMapper.readValue("[ { }, { } ]", List.class), HttpStatus.NOT_IMPLEMENTED);
+                return new ResponseEntity<List<String>>(objectMapper.readValue("[ \"\", \"\" ]", List.class), HttpStatus.NOT_IMPLEMENTED);
             } catch (IOException e) {
                 log.error("Couldn't serialize response for content type application/json", e);
                 return new ResponseEntity<List<String>>(HttpStatus.INTERNAL_SERVER_ERROR);
@@ -50,7 +51,7 @@ public class ContactsApiController implements ContactsApi {
         return new ResponseEntity<List<String>>(HttpStatus.NOT_IMPLEMENTED);
     }
 
-    public ResponseEntity<Void> contactsPost(@ApiParam(value = "" ,required=true )  @Valid @RequestBody String body) {
+    public ResponseEntity<Void> contactsPost(@ApiParam(value = "" ,required=true )  @Valid @RequestBody List<String> body) {
         String accept = request.getHeader("Accept");
         return new ResponseEntity<Void>(HttpStatus.NOT_IMPLEMENTED);
     }

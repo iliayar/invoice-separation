@@ -11,7 +11,6 @@
   <groupId>ru.itmo</groupId>
   <artifactId>invoiceseparation</artifactId>
   <version>0.0.1-SNAPSHOT</version>
-  <!-- <packaging>war</packaging> -->
   <name>invoiceseparation</name>
   <properties>
     <java.version>11</java.version>

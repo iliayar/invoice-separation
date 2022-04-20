@@ -16,6 +16,7 @@
               buildInputs = with pkgs; [
                 openjdk11
                 swagger-codegen
+                nodePackages.yaml-language-server
               ];
             };
           }
