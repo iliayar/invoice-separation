@@ -37,10 +37,10 @@ public class UserApiController implements UserApi {
 
     private final HttpServletRequest request;
 
-    // @Autowired
-    // private UserRepository userRepository;
-    // @Autowired
-    // private ApiTokenRepository apiTokenRepository;
+    @Autowired
+    private UserRepository userRepository;
+    @Autowired
+    private ApiTokenRepository apiTokenRepository;
 
     @org.springframework.beans.factory.annotation.Autowired
     public UserApiController(ObjectMapper objectMapper, HttpServletRequest request) {
@@ -48,39 +48,20 @@ public class UserApiController implements UserApi {
         this.request = request;
     }
 
-    public ResponseEntity<String> userLoginPost(@ApiParam(value = "" ,required=true )  @Valid @RequestBody Credentials body) {
-        String accept = request.getHeader("Accept");
-        if (accept != null && accept.contains("application/json")) {
-            try {
-                return new ResponseEntity<String>(objectMapper.readValue("\"\"", String.class), HttpStatus.NOT_IMPLEMENTED);
-            } catch (IOException e) {
-                log.error("Couldn't serialize response for content type application/json", e);
-                return new ResponseEntity<String>(HttpStatus.INTERNAL_SERVER_ERROR);
-            }
+    public ResponseEntity<String> userLoginPost(
+            @ApiParam(value = "", required = true) @Valid @RequestBody Credentials body) {
+        User user = userRepository.findByUsername(body.getLogin());
+        if (user.validatePassword(body.getPassword())) {
+            ApiToken token = apiTokenRepository.findByUser(user);
+            return new ResponseEntity<String>(token.getToken(), HttpStatus.OK);
         }
-
-        return new ResponseEntity<String>(HttpStatus.NOT_IMPLEMENTED);
+        return new ResponseEntity<String>(HttpStatus.UNAUTHORIZED);
     }
 
     public ResponseEntity<Void> userRegisterPost(@ApiParam(value = "" ,required=true )  @Valid @RequestBody Credentials body) {
-        String accept = request.getHeader("Accept");
-        return new ResponseEntity<Void>(HttpStatus.NOT_IMPLEMENTED);
+        User user = new User(body.getLogin(), body.getPassword());
+        userRepository.save(user);
+        return new ResponseEntity<Void>(HttpStatus.OK);
     }
-
-    // public ResponseEntity<String> userLoginPost(
-    //         @ApiParam(value = "", required = true) @Valid @RequestBody Credentials body) {
-    //     User user = userRepository.findByUsername(body.getLogin());
-    //     if (user.validatePassword(body.getPassword())) {
-    //         ApiToken token = apiTokenRepository.findByUser(user);
-    //         return new ResponseEntity<String>(token.getToken(), HttpStatus.OK);
-    //     }
-    //     return new ResponseEntity<String>(HttpStatus.UNAUTHORIZED);
-    // }
-
-    // public ResponseEntity<Void> userRegisterPost(@ApiParam(value = "" ,required=true )  @Valid @RequestBody Credentials body) {
-    //     User user = new User(body.getLogin(), body.getPassword());
-    //     userRepository.save(user);
-    //     return new ResponseEntity<Void>(HttpStatus.OK);
-    // }
 
 }
