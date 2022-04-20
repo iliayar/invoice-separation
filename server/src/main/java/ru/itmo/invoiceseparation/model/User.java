@@ -14,7 +14,7 @@ public class User implements Serializable {
     private String username;
     private String password;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     private ApiToken token;
 
     public User() {
@@ -29,7 +29,15 @@ public class User implements Serializable {
         this.token = token;
     }
 
+    public ApiToken getApiToken() {
+        return token;
+    }
+
     public boolean validatePassword(String password) {
-        return this.password == password;
+        return this.password.equals(password);
+    }
+
+    public String getUsername() {
+        return username;
     }
 }

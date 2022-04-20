@@ -51,14 +51,22 @@ public class UserApiController implements UserApi {
     public ResponseEntity<String> userLoginPost(
             @ApiParam(value = "", required = true) @Valid @RequestBody Credentials body) {
         User user = userRepository.findByUsername(body.getLogin());
-        if (user.validatePassword(body.getPassword())) {
-            ApiToken token = apiTokenRepository.findByUser(user);
-            return new ResponseEntity<String>(token.getToken(), HttpStatus.OK);
+        if (user != null && user.validatePassword(body.getPassword())) {
+            if (user.getApiToken() == null) {
+                ApiToken token = new ApiToken(user);
+                user.setApiToken(token);
+                apiTokenRepository.save(token);
+                userRepository.save(user);
+            }
+            return new ResponseEntity<String>(user.getApiToken().getToken(), HttpStatus.OK);
         }
         return new ResponseEntity<String>(HttpStatus.UNAUTHORIZED);
     }
 
     public ResponseEntity<Void> userRegisterPost(@ApiParam(value = "" ,required=true )  @Valid @RequestBody Credentials body) {
+        if (userRepository.findByUsername(body.getLogin()) != null) {
+            return new ResponseEntity<Void>(HttpStatus.UNAUTHORIZED);
+        }
         User user = new User(body.getLogin(), body.getPassword());
         userRepository.save(user);
         return new ResponseEntity<Void>(HttpStatus.OK);

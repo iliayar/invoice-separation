@@ -11,6 +11,6 @@ RUN ./mvnw dependency:go-offline
 
 COPY src src
 
-RUN ./mvnw compile
+RUN ./mvnw clean compile
 
 CMD ./mvnw spring-boot:run
