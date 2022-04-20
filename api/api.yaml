@@ -82,6 +82,8 @@ paths:
           required: true
           schema:
             $ref: "#/definitions/InvoiceSeparationRequest"
+      security:
+        - ApiKeyAuth: []
       responses:
         '200':
           description: Ok
@@ -98,8 +100,6 @@ paths:
           required: true
           schema:
             type: string
-      security:
-        - ApiKeyAtuh: []
       responses:
         '200':
           description: Ok

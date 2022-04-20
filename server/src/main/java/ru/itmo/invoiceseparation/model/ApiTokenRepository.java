@@ -7,4 +7,7 @@ import org.springframework.stereotype.Repository;
 public interface ApiTokenRepository extends JpaRepository<ApiToken, Integer> {
 
     ApiToken findByUser(User user);
+
+    ApiToken findById(String id);
+
 }

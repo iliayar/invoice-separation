@@ -30,4 +30,8 @@ public class ApiToken implements Serializable {
     public String getToken() {
         return id;
     }
+
+    public User getUser() {
+        return user;
+    }
 }

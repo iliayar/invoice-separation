@@ -17,6 +17,7 @@
                 openjdk11
                 swagger-codegen
                 nodePackages.yaml-language-server
+                nodePackages.pyright
               ];
             };
           }

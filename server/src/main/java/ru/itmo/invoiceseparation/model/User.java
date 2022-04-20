@@ -1,6 +1,7 @@
 package ru.itmo.invoiceseparation.model;
 
 import java.io.Serializable;
+import java.util.List;
 
 import javax.persistence.*;
 
@@ -16,6 +17,12 @@ public class User implements Serializable {
 
     @OneToOne(cascade = CascadeType.ALL)
     private ApiToken token;
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "to")
+    private List<Debt> incomingDebts;
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "from")
+    private List<Debt> outcomingDebts;
 
     public User() {
     }
