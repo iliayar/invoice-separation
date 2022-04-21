@@ -21,14 +21,16 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.validation.Valid;
 import javax.validation.constraints.*;
 import java.util.List;
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2022-04-21T09:50:17.107+03:00")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2022-04-21T10:03:13.923+03:00")
 
 @Validated
 @Api(value = "debt", description = "the debt API")
 @RequestMapping(value = "")
 public interface DebtApi {
 
-    @ApiOperation(value = "", nickname = "debtGet", notes = "", response = Integer.class, tags={  })
+    @ApiOperation(value = "", nickname = "debtGet", notes = "", response = Integer.class, authorizations = {
+        @Authorization(value = "ApiKeyAuth")
+    }, tags={  })
     @ApiResponses(value = { 
         @ApiResponse(code = 200, message = "Ok.", response = Integer.class),
         @ApiResponse(code = 403, message = "Unauthorized"),
@@ -38,7 +40,9 @@ public interface DebtApi {
     ResponseEntity<Integer> debtGet(@NotNull @ApiParam(value = "User Id", required = true) @Valid @RequestParam(value = "user", required = true) String user);
 
 
-    @ApiOperation(value = "", nickname = "debtPost", notes = "", tags={  })
+    @ApiOperation(value = "", nickname = "debtPost", notes = "", authorizations = {
+        @Authorization(value = "ApiKeyAuth")
+    }, tags={  })
     @ApiResponses(value = { 
         @ApiResponse(code = 200, message = "Ok"),
         @ApiResponse(code = 403, message = "Unauthorized"),

@@ -100,6 +100,8 @@ paths:
           required: true
           schema:
             $ref: "#/definitions/UsernameRequest"
+      security:
+        - ApiKeyAuth: []
       responses:
         '200':
           description: Ok
@@ -114,6 +116,8 @@ paths:
           required: true
           type: string
           description: User Id
+      security:
+        - ApiKeyAuth: []
       responses:
         '200':
           description: Ok.
