@@ -1,7 +1,0 @@
-from swagger_client.api.default_api import DefaultApi
-from swagger_client.configuration import Configuration
-
-configuration = Configuration()
-configuration.host = 'http://localhost:8080'
-
-api = DefaultApi()
