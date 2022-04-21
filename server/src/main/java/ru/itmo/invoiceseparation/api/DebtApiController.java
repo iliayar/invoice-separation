@@ -16,19 +16,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RequestPart;
-import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.constraints.*;
 import javax.validation.Valid;
 import javax.servlet.http.HttpServletRequest;
-import java.io.IOException;
 import java.util.List;
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2022-04-20T23:25:57.807+03:00")
 
 @Controller
 public class DebtApiController implements DebtApi {
@@ -48,7 +42,7 @@ public class DebtApiController implements DebtApi {
     @Autowired
     private DebtRepository debtRepository;
 
-    @org.springframework.beans.factory.annotation.Autowired
+    @Autowired
     public DebtApiController(ObjectMapper objectMapper, HttpServletRequest request) {
         this.objectMapper = objectMapper;
         this.request = request;
@@ -86,7 +80,7 @@ public class DebtApiController implements DebtApi {
         return new ResponseEntity<Integer>(resultDebt, HttpStatus.OK);
     }
 
-    public ResponseEntity<Void> debtPost(@ApiParam(value = "" ,required=true )  @Valid @RequestBody UsernameRequest body) {
+    public ResponseEntity<Void> debtPost(@ApiParam(value = "", required = true) @Valid @RequestBody UsernameRequest body) {
         String apiToken = request.getHeader("X-Api-Key");
 
         ApiToken token = apiTokenRepository.findById(apiToken);

@@ -1,7 +1,9 @@
 package ru.itmo.invoiceseparation.model;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import javax.persistence.*;
 
@@ -23,6 +25,13 @@ public class User implements Serializable {
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "from")
     private List<Debt> outcomingDebts;
+
+    @ManyToMany(targetEntity=User.class)
+    @JoinTable(name="contacts",
+        joinColumns={@JoinColumn(name="user_a_id", referencedColumnName="id")},
+        inverseJoinColumns={@JoinColumn(name="user_b_id", referencedColumnName="id")}
+    )
+    private List<User> contacts = new ArrayList<>();
 
     public User() {
     }
@@ -54,5 +63,21 @@ public class User implements Serializable {
 
     public void addOutcomingDebt(Debt debt) {
         outcomingDebts.add(debt);
+    }
+
+    public List<User> getContacts() {
+        return contacts;
+    }
+
+    public void addContacts(List<User> contacts) {
+        this.contacts.addAll(contacts);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof User)) return false;
+        User user = (User) o;
+        return id.equals(user.id);
     }
 }

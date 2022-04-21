@@ -1,26 +1,26 @@
 package ru.itmo.invoiceseparation.api;
 
 import java.util.List;
+
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.swagger.annotations.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RequestPart;
-import org.springframework.web.multipart.MultipartFile;
+import ru.itmo.invoiceseparation.model.ApiToken;
+import ru.itmo.invoiceseparation.model.ApiTokenRepository;
+import ru.itmo.invoiceseparation.model.User;
+import ru.itmo.invoiceseparation.model.UserRepository;
 
-import javax.validation.constraints.*;
+
 import javax.validation.Valid;
 import javax.servlet.http.HttpServletRequest;
-import java.io.IOException;
-import java.util.List;
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2022-04-20T23:25:57.807+03:00")
+import java.util.stream.Collectors;
 
 @Controller
 public class ContactsApiController implements ContactsApi {
@@ -31,29 +31,57 @@ public class ContactsApiController implements ContactsApi {
 
     private final HttpServletRequest request;
 
-    @org.springframework.beans.factory.annotation.Autowired
+    @Autowired
+    private UserRepository userRepository;
+    @Autowired
+    private ApiTokenRepository apiTokenRepository;
+
+    @Autowired
     public ContactsApiController(ObjectMapper objectMapper, HttpServletRequest request) {
         this.objectMapper = objectMapper;
         this.request = request;
     }
 
-    public ResponseEntity<List<String>> contactsGet() {
-        String accept = request.getHeader("Accept");
-        if (accept != null && accept.contains("application/json")) {
-            try {
-                return new ResponseEntity<List<String>>(objectMapper.readValue("[ \"\", \"\" ]", List.class), HttpStatus.NOT_IMPLEMENTED);
-            } catch (IOException e) {
-                log.error("Couldn't serialize response for content type application/json", e);
-                return new ResponseEntity<List<String>>(HttpStatus.INTERNAL_SERVER_ERROR);
-            }
+    public ResponseEntity<List<String>> contactsGet(String apiToken) {
+        ApiToken token = apiTokenRepository.findById(apiToken);
+        if (token == null) {
+            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
         }
 
-        return new ResponseEntity<List<String>>(HttpStatus.NOT_IMPLEMENTED);
+        User user = token.getUser();
+        if (user == null) {
+            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+        }
+
+        List<String> contactUsernames = user.getContacts()
+            .stream()
+            .map(User::getUsername)
+            .collect(Collectors.toList());
+        return ResponseEntity.ok(contactUsernames);
     }
 
-    public ResponseEntity<Void> contactsPost(@ApiParam(value = "" ,required=true )  @Valid @RequestBody List<String> body) {
-        String accept = request.getHeader("Accept");
-        return new ResponseEntity<Void>(HttpStatus.NOT_IMPLEMENTED);
-    }
+    public ResponseEntity<Void> contactsPost(String apiToken, List<String> body) {
+        ApiToken token = apiTokenRepository.findById(apiToken);
+        if (token == null) {
+            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+        }
 
+        User user = token.getUser();
+        if (user == null) {
+            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+        }
+
+        List<User> userContacts = user.getContacts();
+        for (String username : body) {
+            User contact = userRepository.findByUsername(username);
+            if (contact == null) {
+                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            }
+            if (!userContacts.contains(contact) && !user.getUsername().equals(username)) {
+                userContacts.add(contact);
+            }
+        }
+        userRepository.save(user);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
 }
