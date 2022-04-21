@@ -14,19 +14,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestHeader;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RequestPart;
-import org.springframework.web.multipart.MultipartFile;
 
-import javax.validation.constraints.*;
 import javax.validation.Valid;
 import javax.servlet.http.HttpServletRequest;
-import java.io.IOException;
-import java.util.List;
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2022-04-20T23:25:57.807+03:00")
 
 @Controller
 public class UserApiController implements UserApi {
@@ -42,14 +33,14 @@ public class UserApiController implements UserApi {
     @Autowired
     private ApiTokenRepository apiTokenRepository;
 
-    @org.springframework.beans.factory.annotation.Autowired
+    @Autowired
     public UserApiController(ObjectMapper objectMapper, HttpServletRequest request) {
         this.objectMapper = objectMapper;
         this.request = request;
     }
 
     public ResponseEntity<String> userLoginPost(
-            @ApiParam(value = "", required = true) @Valid @RequestBody Credentials body) {
+        @ApiParam(value = "", required = true) @Valid @RequestBody Credentials body) {
         User user = userRepository.findByUsername(body.getLogin());
         if (user != null && user.validatePassword(body.getPassword())) {
             if (user.getApiToken() == null) {
@@ -63,7 +54,7 @@ public class UserApiController implements UserApi {
         return new ResponseEntity<String>(HttpStatus.UNAUTHORIZED);
     }
 
-    public ResponseEntity<Void> userRegisterPost(@ApiParam(value = "" ,required=true )  @Valid @RequestBody Credentials body) {
+    public ResponseEntity<Void> userRegisterPost(@ApiParam(value = "", required = true) @Valid @RequestBody Credentials body) {
         if (userRepository.findByUsername(body.getLogin()) != null) {
             return new ResponseEntity<Void>(HttpStatus.UNAUTHORIZED);
         }
