@@ -77,7 +77,7 @@ public class ContactsApiController implements ContactsApi {
             if (contact == null) {
                 return new ResponseEntity<>(HttpStatus.NOT_FOUND);
             }
-            if (!userContacts.contains(contact)) {
+            if (!userContacts.contains(contact) && !user.getUsername().equals(username)) {
                 userContacts.add(contact);
             }
         }
