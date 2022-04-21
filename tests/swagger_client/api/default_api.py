@@ -301,7 +301,7 @@ class DefaultApi(object):
         >>> result = thread.get()
 
         :param async_req bool
-        :param str body: (required)
+        :param UsernameRequest body: (required)
         :return: None
                  If the method is called asynchronously,
                  returns the request thread.
@@ -322,7 +322,7 @@ class DefaultApi(object):
         >>> result = thread.get()
 
         :param async_req bool
-        :param str body: (required)
+        :param UsernameRequest body: (required)
         :return: None
                  If the method is called asynchronously,
                  returns the request thread.

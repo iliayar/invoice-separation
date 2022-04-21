@@ -17,3 +17,4 @@ from __future__ import absolute_import
 # import models into model package
 from swagger_client.models.credentials import Credentials
 from swagger_client.models.invoice_separation_request import InvoiceSeparationRequest
+from swagger_client.models.username_request import UsernameRequest

@@ -24,3 +24,4 @@ from swagger_client.configuration import Configuration
 # import models into sdk package
 from swagger_client.models.credentials import Credentials
 from swagger_client.models.invoice_separation_request import InvoiceSeparationRequest
+from swagger_client.models.username_request import UsernameRequest

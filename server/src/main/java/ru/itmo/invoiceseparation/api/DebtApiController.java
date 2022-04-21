@@ -2,8 +2,17 @@ package ru.itmo.invoiceseparation.api;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.swagger.annotations.*;
+import ru.itmo.invoiceseparation.model.ApiToken;
+import ru.itmo.invoiceseparation.model.ApiTokenRepository;
+import ru.itmo.invoiceseparation.model.Debt;
+import ru.itmo.invoiceseparation.model.DebtRepository;
+import ru.itmo.invoiceseparation.model.User;
+import ru.itmo.invoiceseparation.model.UserRepository;
+import ru.itmo.invoiceseparation.model.UsernameRequest;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -30,6 +39,15 @@ public class DebtApiController implements DebtApi {
 
     private final HttpServletRequest request;
 
+    @Autowired
+    private UserRepository userRepository;
+
+    @Autowired
+    private ApiTokenRepository apiTokenRepository;
+
+    @Autowired
+    private DebtRepository debtRepository;
+
     @org.springframework.beans.factory.annotation.Autowired
     public DebtApiController(ObjectMapper objectMapper, HttpServletRequest request) {
         this.objectMapper = objectMapper;
@@ -37,22 +55,63 @@ public class DebtApiController implements DebtApi {
     }
 
     public ResponseEntity<Integer> debtGet(@NotNull @ApiParam(value = "User Id", required = true) @Valid @RequestParam(value = "user", required = true) String user) {
-        String accept = request.getHeader("Accept");
-        if (accept != null && accept.contains("application/json")) {
-            try {
-                return new ResponseEntity<Integer>(objectMapper.readValue("0", Integer.class), HttpStatus.NOT_IMPLEMENTED);
-            } catch (IOException e) {
-                log.error("Couldn't serialize response for content type application/json", e);
-                return new ResponseEntity<Integer>(HttpStatus.INTERNAL_SERVER_ERROR);
-            }
+        String apiToken = request.getHeader("X-Api-Key");
+
+        ApiToken token = apiTokenRepository.findById(apiToken);
+        if (token == null) {
+            return new ResponseEntity<Integer>(HttpStatus.UNAUTHORIZED);
         }
 
-        return new ResponseEntity<Integer>(HttpStatus.NOT_IMPLEMENTED);
+        User fromUser = token.getUser();
+        if (fromUser == null) {
+            return new ResponseEntity<Integer>(HttpStatus.UNAUTHORIZED);
+        }
+
+        User toUser = userRepository.findByUsername(user);
+        if (toUser == null) {
+            return new ResponseEntity<Integer>(HttpStatus.NOT_FOUND);
+        }
+
+        if (fromUser.getUsername().equals(toUser.getUsername())) {
+            return new ResponseEntity<Integer>(HttpStatus.BAD_REQUEST);
+        }
+
+        List<Debt> debts = debtRepository.findByFromAndTo(toUser, fromUser);
+        Integer resultDebt = 0;
+
+        for (Debt debt : debts) {
+            resultDebt += debt.getAmount();
+        }
+
+        return new ResponseEntity<Integer>(resultDebt, HttpStatus.OK);
     }
 
-    public ResponseEntity<Void> debtPost(@ApiParam(value = "" ,required=true )  @Valid @RequestBody String body) {
-        String accept = request.getHeader("Accept");
-        return new ResponseEntity<Void>(HttpStatus.NOT_IMPLEMENTED);
+    public ResponseEntity<Void> debtPost(@ApiParam(value = "" ,required=true )  @Valid @RequestBody UsernameRequest body) {
+        String apiToken = request.getHeader("X-Api-Key");
+
+        ApiToken token = apiTokenRepository.findById(apiToken);
+        if (token == null) {
+            return new ResponseEntity<Void>(HttpStatus.UNAUTHORIZED);
+        }
+
+        User fromUser = token.getUser();
+        if (fromUser == null) {
+            return new ResponseEntity<Void>(HttpStatus.UNAUTHORIZED);
+        }
+
+        log.info("Trying find toUser by username " + body.getUsername());
+        User toUser = userRepository.findByUsername(body.getUsername());
+        if (toUser == null) {
+            return new ResponseEntity<Void>(HttpStatus.NOT_FOUND);
+        }
+
+        if (fromUser.getUsername().equals(toUser.getUsername())) {
+            return new ResponseEntity<Void>(HttpStatus.BAD_REQUEST);
+        }
+
+        debtRepository.deleteByFromAndTo(toUser, fromUser);
+
+        return new ResponseEntity<Void>(HttpStatus.OK);
     }
 
 }

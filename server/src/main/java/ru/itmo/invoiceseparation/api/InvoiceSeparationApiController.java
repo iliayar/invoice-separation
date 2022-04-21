@@ -55,7 +55,6 @@ public class InvoiceSeparationApiController implements InvoiceSeparationApi {
     }
 
     public ResponseEntity<Void> invoiceSeparationPost(@ApiParam(value = "" ,required=true )  @Valid @RequestBody InvoiceSeparationRequest body) {
-        String accept = request.getHeader("Accept");
         String apiToken = request.getHeader("X-Api-Key");
 
         ApiToken token = apiTokenRepository.findById(apiToken);
@@ -68,8 +67,6 @@ public class InvoiceSeparationApiController implements InvoiceSeparationApi {
             return new ResponseEntity<Void>(HttpStatus.UNAUTHORIZED);
         }
 
-        log.info("Splitting invoice of user " + user.getUsername());
-
         if (body.getInvoice() < 0) {
             return new ResponseEntity<Void>(HttpStatus.BAD_REQUEST);
         }
@@ -77,19 +74,23 @@ public class InvoiceSeparationApiController implements InvoiceSeparationApi {
             return new ResponseEntity<Void>(HttpStatus.BAD_REQUEST);
         }
 
-        Integer debt = (int) Math.ceil(body.getInvoice().doubleValue() / body.getUsers().size());
+        Integer debtAmount = (int) Math.ceil(body.getInvoice().doubleValue() / body.getUsers().size());
 
-        log.info("Adding debt " + debt + " to each user");
         for (String username : body.getUsers()) {
             User toUser = userRepository.findByUsername(username);
             if (toUser == null || toUser.equals(user)) {
-                return new ResponseEntity<Void>(HttpStatus.BAD_REQUEST);
+                return new ResponseEntity<Void>(HttpStatus.NOT_FOUND);
             }
-            log.info("Adding debt to user " + toUser.getUsername());
-            debtRepository.save(new Debt(user, toUser, debt));
-        }
+            Debt debt = new Debt(user, toUser, debtAmount);
+            user.addIncomingDebt(debt);
+            toUser.addOutcomingDebt(debt);
 
-        return new ResponseEntity<Void>(HttpStatus.NOT_IMPLEMENTED);
+            debtRepository.save(debt);
+            userRepository.save(toUser);
+        }
+        userRepository.save(user);
+
+        return new ResponseEntity<Void>(HttpStatus.OK);
     }
 
 }

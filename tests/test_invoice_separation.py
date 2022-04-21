@@ -23,6 +23,27 @@ token1 = api.user_login_post(body=creds1)
 r = api.user_register_post(body=creds2)
 token2 = api.user_login_post(body=creds2)
 
-req = InvoiceSeparationRequest(invoice=100, users=[login1, login2])
+req = InvoiceSeparationRequest(invoice=100, users=[login2])
 
-api.invoice_separation_post(body=req)
+api_client1 = ApiClient(configuration=configuration)
+api_client1.set_default_header('X-Api-Key', token1)
+api1 = DefaultApi(api_client=api_client1)
+
+api_client2 = ApiClient(configuration=configuration)
+api_client2.set_default_header('X-Api-Key', token2)
+api2 = DefaultApi(api_client=api_client2)
+
+api1.invoice_separation_post(body=req)
+
+
+debt = api2.debt_get(login1);
+assert debt == 100
+
+req = UsernameRequest(username=login1)
+api2.debt_post(body=req)
+
+debt = api2.debt_get(login1);
+assert debt == 0
+
+print(login1)
+print(token1)

@@ -10,59 +10,34 @@ import javax.validation.Valid;
 import javax.validation.constraints.*;
 
 /**
- * Credentials
+ * UsernameRequest
  */
 @Validated
 @javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2022-04-21T09:50:17.107+03:00")
 
 
-public class Credentials   {
-  @JsonProperty("login")
-  private String login = null;
+public class UsernameRequest   {
+  @JsonProperty("username")
+  private String username = null;
 
-  @JsonProperty("password")
-  private String password = null;
-
-  public Credentials login(String login) {
-    this.login = login;
+  public UsernameRequest username(String username) {
+    this.username = username;
     return this;
   }
 
   /**
-   * Get login
-   * @return login
+   * Get username
+   * @return username
   **/
-  @ApiModelProperty(required = true, value = "")
-  @NotNull
+  @ApiModelProperty(value = "")
 
 
-  public String getLogin() {
-    return login;
+  public String getUsername() {
+    return username;
   }
 
-  public void setLogin(String login) {
-    this.login = login;
-  }
-
-  public Credentials password(String password) {
-    this.password = password;
-    return this;
-  }
-
-  /**
-   * Get password
-   * @return password
-  **/
-  @ApiModelProperty(required = true, value = "")
-  @NotNull
-
-
-  public String getPassword() {
-    return password;
-  }
-
-  public void setPassword(String password) {
-    this.password = password;
+  public void setUsername(String username) {
+    this.username = username;
   }
 
 
@@ -74,23 +49,21 @@ public class Credentials   {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    Credentials credentials = (Credentials) o;
-    return Objects.equals(this.login, credentials.login) &&
-        Objects.equals(this.password, credentials.password);
+    UsernameRequest usernameRequest = (UsernameRequest) o;
+    return Objects.equals(this.username, usernameRequest.username);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(login, password);
+    return Objects.hash(username);
   }
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class Credentials {\n");
+    sb.append("class UsernameRequest {\n");
     
-    sb.append("    login: ").append(toIndentedString(login)).append("\n");
-    sb.append("    password: ").append(toIndentedString(password)).append("\n");
+    sb.append("    username: ").append(toIndentedString(username)).append("\n");
     sb.append("}");
     return sb.toString();
   }

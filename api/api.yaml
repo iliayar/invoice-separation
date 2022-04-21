@@ -99,7 +99,7 @@ paths:
           in: body
           required: true
           schema:
-            type: string
+            $ref: "#/definitions/UsernameRequest"
       responses:
         '200':
           description: Ok
@@ -151,3 +151,10 @@ definitions:
         items: 
           type: string
         description: Users to split money between
+
+
+  UsernameRequest:
+    type: object
+    properties: 
+      username:
+        type: string

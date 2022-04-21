@@ -15,7 +15,7 @@ import javax.validation.constraints.*;
  * InvoiceSeparationRequest
  */
 @Validated
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2022-04-21T00:58:09.160+03:00")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2022-04-21T09:50:17.107+03:00")
 
 
 public class InvoiceSeparationRequest   {

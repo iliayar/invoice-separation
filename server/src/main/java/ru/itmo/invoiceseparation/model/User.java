@@ -47,4 +47,12 @@ public class User implements Serializable {
     public String getUsername() {
         return username;
     }
+
+    public void addIncomingDebt(Debt debt) {
+        incomingDebts.add(debt);
+    }
+
+    public void addOutcomingDebt(Debt debt) {
+        outcomingDebts.add(debt);
+    }
 }

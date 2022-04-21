@@ -20,11 +20,24 @@ public class Debt implements Serializable {
 
     Integer amount;
 
-    public Debt() {}
+    public Debt() {
+    }
 
     public Debt(User from, User to, Integer amount) {
         this.from = from;
         this.to = to;
         this.amount = amount;
+    }
+
+    public Integer getAmount() {
+        return amount;
+    }
+
+    public User getTo() {
+        return to;
+    }
+
+    public User getFrom() {
+        return from;
     }
 }
