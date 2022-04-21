@@ -1,4 +1,4 @@
-package com.example.invoicesep.api
+package com.example.invoicesep.model
 
 import android.os.Parcelable
 import kotlinx.parcelize.Parcelize

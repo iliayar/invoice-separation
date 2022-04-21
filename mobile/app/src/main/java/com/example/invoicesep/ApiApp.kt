@@ -19,7 +19,7 @@ class ApiApp : Application() {
         instance = this
         val retrofit = Retrofit.Builder()
             .client(OkHttpClient())
-            .baseUrl("https://invoice-separation.iliayar.ru/api/")
+            .baseUrl("https://invoice-separation.iliayar.ru/")
             .addConverterFactory(Json.asConverterFactory("application/json".toMediaType()))
             .build()
         jsonPlaceHolderApi = retrofit.create(JsonPlaceHolderApi::class.java)
