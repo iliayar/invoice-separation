@@ -4,6 +4,12 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
 import androidx.lifecycle.coroutineScope
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.example.invoicesep.api.Debt
+import com.example.invoicesep.api.InvoiceSeparation
+import com.example.invoicesep.api.User
+import com.example.invoicesep.api.UserLogin
 import com.example.invoicesep.model.InvoiceSeparation
 import com.example.invoicesep.model.UserLogin
 import com.example.invoicesep.databinding.ActivityMainBinding
@@ -15,6 +21,7 @@ import retrofit2.Response
 @ExperimentalSerializationApi
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
+    private lateinit var recyclerView: RecyclerView
     val token = "eb9701a3-dd69-4052-8b05-d3391764ec50"
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -69,8 +76,20 @@ class MainActivity : AppCompatActivity() {
 
     private fun getContacts() {
         apiFun(
-            { ApiApp.instance.jsonPlaceHolderApi.getContacts(token) },
-            { makeToast(it.body().toString()) })
+            { ApiApp.instance.jsonPlaceHolderApi.getContacts() },
+            {
+                if (it.body() != null) {
+                    recyclerView = findViewById(R.id.recycler_view)
+                    recyclerView.layoutManager = LinearLayoutManager(this)
+                    recyclerView.adapter = ContactAdapter(it.body()!!) {
+                        Toast.makeText(
+                            this,
+                            "Clicked on ${it.info}",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    }
+                }
+            })
     }
 
     private fun invoiceSeparation(invoice: Int, usersList: List<String>) {

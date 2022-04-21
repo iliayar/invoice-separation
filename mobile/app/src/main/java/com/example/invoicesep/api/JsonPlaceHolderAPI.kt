@@ -8,6 +8,7 @@ import retrofit2.http.*
 
 
 interface JsonPlaceHolderApi {
+    // TODO: регистрация, отдельное окно для регистрации или для логина
     @POST("user/register")
     suspend fun registerUser(@Header("X-Api-Key") apiKey: String,@Body userLogin: UserLogin): Response<Unit>
 
