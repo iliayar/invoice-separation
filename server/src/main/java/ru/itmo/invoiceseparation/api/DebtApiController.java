@@ -48,10 +48,22 @@ public class DebtApiController implements DebtApi {
         this.request = request;
     }
 
-    public ResponseEntity<Integer> debtGet(@NotNull @ApiParam(value = "User Id", required = true) @Valid @RequestParam(value = "user", required = true) String user) {
-        String apiToken = request.getHeader("X-Api-Key");
+    private Integer getDebt(User from, User to) {
+        Integer resultDebt = 0;
 
-        ApiToken token = apiTokenRepository.findById(apiToken);
+        for (Debt debt : debtRepository.findByFromAndTo(to, from)) {
+            resultDebt += debt.getAmount();
+        }
+
+        for (Debt debt : debtRepository.findByFromAndTo(from, to)) {
+            resultDebt -= debt.getAmount();
+        }
+
+        return resultDebt;
+    }
+
+    public ResponseEntity<Integer> debtGet(String user, String xApiKey) {
+        ApiToken token = apiTokenRepository.findById(xApiKey);
         if (token == null) {
             return new ResponseEntity<Integer>(HttpStatus.UNAUTHORIZED);
         }
@@ -70,20 +82,11 @@ public class DebtApiController implements DebtApi {
             return new ResponseEntity<Integer>(HttpStatus.BAD_REQUEST);
         }
 
-        List<Debt> debts = debtRepository.findByFromAndTo(toUser, fromUser);
-        Integer resultDebt = 0;
-
-        for (Debt debt : debts) {
-            resultDebt += debt.getAmount();
-        }
-
-        return new ResponseEntity<Integer>(resultDebt, HttpStatus.OK);
+        return new ResponseEntity<Integer>(getDebt(fromUser, toUser), HttpStatus.OK);
     }
 
-    public ResponseEntity<Void> debtPost(@ApiParam(value = "", required = true) @Valid @RequestBody UsernameRequest body) {
-        String apiToken = request.getHeader("X-Api-Key");
-
-        ApiToken token = apiTokenRepository.findById(apiToken);
+    public ResponseEntity<Void> debtPost(UsernameRequest body, String xApiKey) {
+        ApiToken token = apiTokenRepository.findById(xApiKey);
         if (token == null) {
             return new ResponseEntity<Void>(HttpStatus.UNAUTHORIZED);
         }
@@ -93,7 +96,6 @@ public class DebtApiController implements DebtApi {
             return new ResponseEntity<Void>(HttpStatus.UNAUTHORIZED);
         }
 
-        log.info("Trying find toUser by username " + body.getUsername());
         User toUser = userRepository.findByUsername(body.getUsername());
         if (toUser == null) {
             return new ResponseEntity<Void>(HttpStatus.NOT_FOUND);
@@ -103,7 +105,13 @@ public class DebtApiController implements DebtApi {
             return new ResponseEntity<Void>(HttpStatus.BAD_REQUEST);
         }
 
-        debtRepository.deleteByFromAndTo(toUser, fromUser);
+        Integer debtAmount = getDebt(fromUser, toUser);
+        if (debtAmount > 0) {
+            debtRepository.deleteByFromAndTo(toUser, fromUser);
+            debtRepository.deleteByFromAndTo(fromUser, toUser);
+        } else {
+            return new ResponseEntity<Void>(HttpStatus.BAD_REQUEST);
+        }
 
         return new ResponseEntity<Void>(HttpStatus.OK);
     }

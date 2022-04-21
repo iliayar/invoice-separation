@@ -42,8 +42,8 @@ public class ContactsApiController implements ContactsApi {
         this.request = request;
     }
 
-    public ResponseEntity<List<String>> contactsGet(String apiToken) {
-        ApiToken token = apiTokenRepository.findById(apiToken);
+    public ResponseEntity<List<String>> contactsGet(String xApiKey) {
+        ApiToken token = apiTokenRepository.findById(xApiKey);
         if (token == null) {
             return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
         }
@@ -60,8 +60,8 @@ public class ContactsApiController implements ContactsApi {
         return ResponseEntity.ok(contactUsernames);
     }
 
-    public ResponseEntity<Void> contactsPost(String apiToken, List<String> body) {
-        ApiToken token = apiTokenRepository.findById(apiToken);
+    public ResponseEntity<Void> contactsPost(List<String> body, String xApiKey) {
+        ApiToken token = apiTokenRepository.findById(xApiKey);
         if (token == null) {
             return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
         }

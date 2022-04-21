@@ -1,10 +1,10 @@
 package ru.itmo.invoiceseparation.api;
 
-import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2022-04-21T14:27:58.516+03:00")
 
-@XmlRootElement
+@javax.xml.bind.annotation.XmlRootElement
 public class ApiResponseMessage {
     public static final int ERROR = 1;
     public static final int WARNING = 2;
@@ -16,30 +16,29 @@ public class ApiResponseMessage {
     String type;
     String message;
 
-    public ApiResponseMessage() {
-    }
+    public ApiResponseMessage(){}
 
-    public ApiResponseMessage(int code, String message) {
+    public ApiResponseMessage(int code, String message){
         this.code = code;
-        switch (code) {
-            case ERROR:
-                setType("error");
-                break;
-            case WARNING:
-                setType("warning");
-                break;
-            case INFO:
-                setType("info");
-                break;
-            case OK:
-                setType("ok");
-                break;
-            case TOO_BUSY:
-                setType("too busy");
-                break;
-            default:
-                setType("unknown");
-                break;
+        switch(code){
+        case ERROR:
+            setType("error");
+            break;
+        case WARNING:
+            setType("warning");
+            break;
+        case INFO:
+            setType("info");
+            break;
+        case OK:
+            setType("ok");
+            break;
+        case TOO_BUSY:
+            setType("too busy");
+            break;
+        default:
+            setType("unknown");
+            break;
         }
         this.message = message;
     }
