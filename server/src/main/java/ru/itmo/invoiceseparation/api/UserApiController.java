@@ -39,8 +39,7 @@ public class UserApiController implements UserApi {
         this.request = request;
     }
 
-    public ResponseEntity<String> userLoginPost(
-        @ApiParam(value = "", required = true) @Valid @RequestBody Credentials body) {
+    public ResponseEntity<String> userLoginPost(Credentials body) {
         User user = userRepository.findByUsername(body.getLogin());
         if (user != null && user.validatePassword(body.getPassword())) {
             if (user.getApiToken() == null) {
@@ -54,7 +53,7 @@ public class UserApiController implements UserApi {
         return new ResponseEntity<String>(HttpStatus.UNAUTHORIZED);
     }
 
-    public ResponseEntity<Void> userRegisterPost(@ApiParam(value = "", required = true) @Valid @RequestBody Credentials body) {
+    public ResponseEntity<Void> userRegisterPost(Credentials body) {
         if (userRepository.findByUsername(body.getLogin()) != null) {
             return new ResponseEntity<Void>(HttpStatus.UNAUTHORIZED);
         }

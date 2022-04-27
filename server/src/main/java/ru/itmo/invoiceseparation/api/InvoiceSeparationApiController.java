@@ -46,10 +46,8 @@ public class InvoiceSeparationApiController implements InvoiceSeparationApi {
         this.request = request;
     }
 
-    public ResponseEntity<Void> invoiceSeparationPost(@ApiParam(value = "", required = true) @Valid @RequestBody InvoiceSeparationRequest body) {
-        String apiToken = request.getHeader("X-Api-Key");
-
-        ApiToken token = apiTokenRepository.findById(apiToken);
+    public ResponseEntity<Void> invoiceSeparationPost(InvoiceSeparationRequest body, String xApiKey) {
+        ApiToken token = apiTokenRepository.findById(xApiKey);
         if (token == null) {
             return new ResponseEntity<Void>(HttpStatus.UNAUTHORIZED);
         }
