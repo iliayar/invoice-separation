@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/registerPage">
+
+    <fragment
+        android:id="@+id/registerPage"
+        android:name="com.example.invoicesep.fragments.RegisterPage"
+        android:label="RegisterPage" >
+        <action
+            android:id="@+id/action_registerPage_to_mainPage"
+            app:destination="@id/mainPage" />
+    </fragment>
+    <fragment
+        android:id="@+id/mainPage"
+        android:name="com.example.invoicesep.fragments.MainPage"
+        android:label="MainPage" >
+        <action
+            android:id="@+id/action_mainPage_to_contactsPage"
+            app:destination="@id/contactsPage" />
+    </fragment>
+    <fragment
+        android:id="@+id/contactsPage"
+        android:name="com.example.invoicesep.fragments.ContactsPage"
+        android:label="ContactsPage" >
+        <action
+            android:id="@+id/action_contactsPage_to_mainPage"
+            app:destination="@id/mainPage" />
+    </fragment>
+</navigation>
