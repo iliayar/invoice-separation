@@ -4,19 +4,19 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.example.invoicesep.api.User
+import com.example.invoicesep.model.User
 import kotlinx.android.synthetic.main.contact.view.*
 
 
 class ContactAdapter(
-    private val users: List<User>,
-    private val onClick: (User) -> Unit
+    private val users: List<String>,
+    private val onClick: (String) -> Unit
 ) : RecyclerView.Adapter<ContactAdapter.ContactViewHolder>() {
 
     inner class ContactViewHolder(val root: View) : RecyclerView.ViewHolder(root) {
-        fun bind(user: User) {
+        fun bind(user: String) {
             with(root) {
-                username.text = user.info
+                username.text = user
             }
         }
     }
