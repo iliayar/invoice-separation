@@ -6,4 +6,8 @@
     <string name="add_contact">Add \ contacts</string>
     <string name="view_contacts">Get \n contacts</string>
     <string name="view_history">Show \n history</string>
+    <string name="no_username">No username</string>
+    <string name="enter_your_login">Enter your login</string>
+    <string name="enter_your_password">Enter your password</string>
+    <string name="enter">Enter</string>
 </resources>
