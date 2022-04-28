@@ -27,6 +27,10 @@ class MainPage: Fragment(R.layout.main_page) {
         binding.Name.setOnClickListener { }
     }
 
+    private fun getDebt() {
+
+    }
+
     private fun getContacts() {
         viewModel.fetchContacts()
         val action = MainPageDirections.actionMainPageToContactsPage()

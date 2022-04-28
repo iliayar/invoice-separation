@@ -3,6 +3,7 @@ package com.example.invoicesep.fragments
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
+import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
@@ -23,6 +24,7 @@ class RegisterPage : Fragment(R.layout.register_page) {
         viewModel.state.observe(viewLifecycleOwner) {
             when(it) {
                 is Success -> {
+//                    viewModel.token = it.value!!
                     makeToast("success")
                     val action = RegisterPageDirections.actionRegisterPageToMainPage()
                     findNavController().navigate(action)

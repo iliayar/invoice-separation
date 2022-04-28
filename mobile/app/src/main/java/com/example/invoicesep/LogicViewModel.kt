@@ -19,7 +19,7 @@ class LogicViewModel : ViewModel() {
 
     val contacts: MutableLiveData<State<List<String>>> by lazy { MutableLiveData() }
 
-    val token = "f11559a3-2a45-4cdb-a0d7-e9042b7e447a"
+    var token : String = "f11559a3-2a45-4cdb-a0d7-e9042b7e447a"
 
     fun <T> apiFun(
         responseSupplier: suspend () -> Response<T>,
@@ -53,6 +53,12 @@ class LogicViewModel : ViewModel() {
                 contacts.value = Failure(it.code())
             })
     }
+
+//    fun getDebt() {
+//        apiFun(
+//            { ApiApp.instance.jsonPlaceHolderApi.getDebt(token)}
+//        )
+//    }
 
     @OptIn(ExperimentalSerializationApi::class)
     fun postContacts(users: List<String>) {

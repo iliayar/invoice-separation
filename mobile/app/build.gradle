@@ -7,7 +7,6 @@ plugins {
     id 'androidx.navigation.safeargs'
 }
 
-
 android {
     compileSdkVersion 32
     buildToolsVersion "30.0.3"

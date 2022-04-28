@@ -32,7 +32,7 @@ class ContactAdapter(
         return holder
     }
 
-    public fun setData(newUsers: List<String>) {
+    fun setData(newUsers: List<String>) {
         users = newUsers
         notifyItemRangeInserted(0, newUsers.size)
     }
