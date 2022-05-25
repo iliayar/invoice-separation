@@ -133,7 +133,9 @@ paths:
         - ApiKeyAuth: []
       responses:
         '200':
-          description: Ok
+          description: The amount of debt payed
+          schema:
+            type: integer
         '400':
           description: Cannot pay debt to yourself or you owe nothing
         '401':
@@ -160,7 +162,6 @@ paths:
             * Positive number: You owe to requested user
           schema:
             type: integer
-            description: The amount of money owed to user
         '400':
           description: Cannot get debt to yourself
         '401':

@@ -2,7 +2,7 @@ package ru.itmo.invoiceseparation.api;
 
 import javax.xml.bind.annotation.XmlTransient;
 
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2022-05-26T01:45:00.234+03:00")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2022-05-26T02:26:17.516+03:00")
 
 @javax.xml.bind.annotation.XmlRootElement
 public class ApiResponseMessage {

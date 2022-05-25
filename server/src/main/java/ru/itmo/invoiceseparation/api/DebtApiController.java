@@ -85,7 +85,7 @@ public class DebtApiController implements DebtApi {
         return new ResponseEntity<Integer>(getDebt(fromUser, toUser), HttpStatus.OK);
     }
 
-    public ResponseEntity<Void> debtPost(UsernameRequest body, String xApiKey) {
+    public ResponseEntity<Integer> debtPost(UsernameRequest body, String xApiKey) {
         ApiToken token = apiTokenRepository.findById(xApiKey);
         if (token == null) {
             return new ResponseEntity<Void>(HttpStatus.UNAUTHORIZED);
@@ -113,7 +113,7 @@ public class DebtApiController implements DebtApi {
             return new ResponseEntity<Void>(HttpStatus.BAD_REQUEST);
         }
 
-        return new ResponseEntity<Void>(HttpStatus.OK);
+        return new ResponseEntity<Integer>(debtAmount, HttpStatus.OK);
     }
 
 }
