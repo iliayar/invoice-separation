@@ -21,7 +21,7 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.validation.Valid;
 import javax.validation.constraints.*;
 import java.util.List;
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2022-04-21T14:27:58.516+03:00")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2022-05-26T01:45:00.234+03:00")
 
 @Validated
 @Api(value = "contacts", description = "the contacts API")
@@ -33,7 +33,7 @@ public interface ContactsApi {
     }, tags={  })
     @ApiResponses(value = { 
         @ApiResponse(code = 200, message = "List of all contacts", response = String.class, responseContainer = "List"),
-        @ApiResponse(code = 403, message = "Unauthorized") })
+        @ApiResponse(code = 401, message = "You are not logged in") })
     @RequestMapping(value = "/contacts",
         method = RequestMethod.GET)
     ResponseEntity<List<String>> contactsGet(@ApiParam(value = "" ,required=true) @RequestHeader(value="X-Api-Key", required=true) String xApiKey);
@@ -43,9 +43,9 @@ public interface ContactsApi {
         @Authorization(value = "ApiKeyAuth")
     }, tags={  })
     @ApiResponses(value = { 
-        @ApiResponse(code = 200, message = "Ok"),
-        @ApiResponse(code = 403, message = "Unauthorized"),
-        @ApiResponse(code = 404, message = "No such user") })
+        @ApiResponse(code = 200, message = "Success"),
+        @ApiResponse(code = 401, message = "You are not logged in"),
+        @ApiResponse(code = 404, message = "One or more users in list not found") })
     @RequestMapping(value = "/contacts",
         method = RequestMethod.POST)
     ResponseEntity<Void> contactsPost(@ApiParam(value = "" ,required=true )  @Valid @RequestBody List<String> body,@ApiParam(value = "" ,required=true) @RequestHeader(value="X-Api-Key", required=true) String xApiKey);

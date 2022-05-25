@@ -25,7 +25,7 @@ paths:
         '200':
           description: Success
         '401':
-          description: Invalid credentials
+          description: Such user already exists
 
   /user/login:
     post:
@@ -42,8 +42,6 @@ paths:
             type: string
             description: User API Token
         '401':
-          description: Invalid credentials
-        '403':
           description: No such user or password missmatch
 
   /contacts:
@@ -56,6 +54,7 @@ paths:
             type: array
             items: 
               type: string
+            description: List of contacts to add
         - name: X-Api-Key
           in: header
           required: true
@@ -64,11 +63,11 @@ paths:
         - ApiKeyAuth: []
       responses:
         '200':
-          description: Ok
-        '403':
-          description: Unauthorized
+          description: Success
+        '401':
+          description: You are not logged in
         '404':
-          description: No such user
+          description: One or more users in list not found
     get:
       parameters:
         - name: X-Api-Key
@@ -84,8 +83,8 @@ paths:
             type: array
             items:
               type: string
-        '403':
-          description: Unauthorized
+        '401':
+          description: You are not logged in
 
   /invoice-separation:
     post:
@@ -104,10 +103,18 @@ paths:
       responses:
         '200':
           description: Ok
-        '403':
-          description: Unauthorized
+        '400':
+          description: | 
+            One of:
+            * Invoice is negative number
+            * List of users is empty
+        '401':
+          description: You are not logged in
         '404':
-          description: No such user. If any user in list is missing
+          description: |
+            One of:
+            * One or more users in list not found
+            * Current user is presented in the list
 
   /debt:
     post:
@@ -117,6 +124,7 @@ paths:
           required: true
           schema:
             $ref: "#/definitions/UsernameRequest"
+          description: User to pay debt to
         - name: X-Api-Key
           in: header
           required: true
@@ -126,17 +134,19 @@ paths:
       responses:
         '200':
           description: Ok
-        '403':
-          description: Unauthorized
+        '400':
+          description: Cannot pay debt to yourself or you owe nothing
+        '401':
+          description: You are not logged in
         '404':
-          description: No such user. If any user in list is missing
+          description: No such user
     get:
       parameters:
         - name: user
           in: query
           required: true
           type: string
-          description: User Id
+          description: User to get incoming debt from
         - name: X-Api-Key
           in: header
           required: true
@@ -145,14 +155,18 @@ paths:
         - ApiKeyAuth: []
       responses:
         '200':
-          description: Ok.
+          description: |
+            * Negative number: Provided user ows you
+            * Positive number: You owe to requested user
           schema:
             type: integer
             description: The amount of money owed to user
-        '403':
-          description: Unauthorized
+        '400':
+          description: Cannot get debt to yourself
+        '401':
+          description: You are not logged in
         '404':
-          description: No such user. If any user in list is missing
+          description: No such user
       
 
 definitions:

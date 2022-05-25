@@ -21,7 +21,7 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.validation.Valid;
 import javax.validation.constraints.*;
 import java.util.List;
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2022-04-21T14:27:58.516+03:00")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2022-05-26T01:45:00.234+03:00")
 
 @Validated
 @Api(value = "user", description = "the user API")
@@ -31,8 +31,7 @@ public interface UserApi {
     @ApiOperation(value = "", nickname = "userLoginPost", notes = "", response = String.class, tags={  })
     @ApiResponses(value = { 
         @ApiResponse(code = 200, message = "Success", response = String.class),
-        @ApiResponse(code = 401, message = "Invalid credentials"),
-        @ApiResponse(code = 403, message = "No such user or password missmatch") })
+        @ApiResponse(code = 401, message = "No such user or password missmatch") })
     @RequestMapping(value = "/user/login",
         method = RequestMethod.POST)
     ResponseEntity<String> userLoginPost(@ApiParam(value = "" ,required=true )  @Valid @RequestBody Credentials body);
@@ -41,7 +40,7 @@ public interface UserApi {
     @ApiOperation(value = "", nickname = "userRegisterPost", notes = "", tags={  })
     @ApiResponses(value = { 
         @ApiResponse(code = 200, message = "Success"),
-        @ApiResponse(code = 401, message = "Invalid credentials") })
+        @ApiResponse(code = 401, message = "Such user already exists") })
     @RequestMapping(value = "/user/register",
         method = RequestMethod.POST)
     ResponseEntity<Void> userRegisterPost(@ApiParam(value = "" ,required=true )  @Valid @RequestBody Credentials body);
