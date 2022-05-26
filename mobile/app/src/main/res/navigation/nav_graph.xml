@@ -2,15 +2,27 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/registerPage">
+    app:startDestination="@id/enterPage">
+
+    <fragment
+        android:id="@+id/enterPage"
+        android:name="com.example.invoicesep.fragments.EnterPage"
+        android:label="EnterPage">
+        <action
+            android:id="@+id/action_enterPage_to_mainPage"
+            app:destination="@id/mainPage" />
+        <action
+            android:id="@+id/action_enterPage_to_registerPage"
+            app:destination="@id/registerPage" />
+    </fragment>
 
     <fragment
         android:id="@+id/registerPage"
         android:name="com.example.invoicesep.fragments.RegisterPage"
         android:label="RegisterPage" >
         <action
-            android:id="@+id/action_registerPage_to_mainPage"
-            app:destination="@id/mainPage" />
+            android:id="@+id/action_registerPage_to_enterPage"
+            app:destination="@id/enterPage" />
     </fragment>
     <fragment
         android:id="@+id/mainPage"
@@ -19,6 +31,12 @@
         <action
             android:id="@+id/action_mainPage_to_contactsPage"
             app:destination="@id/contactsPage" />
+        <action
+            android:id="@+id/action_mainPage_to_addPage"
+            app:destination="@id/addPage" />
+        <action
+            android:id="@+id/action_mainPage_to_meetingPage"
+            app:destination="@id/meetingPage" />
     </fragment>
     <fragment
         android:id="@+id/contactsPage"
@@ -26,6 +44,25 @@
         android:label="ContactsPage" >
         <action
             android:id="@+id/action_contactsPage_to_mainPage"
+            app:destination="@id/mainPage" />
+        <action
+            android:id="@+id/action_contactsPage_to_addPage"
+            app:destination="@id/addPage" />
+    </fragment>
+    <fragment
+        android:id="@+id/addPage"
+        android:name="com.example.invoicesep.fragments.AddPage"
+        android:label="AddPage" >
+        <action
+            android:id="@+id/action_addPage_to_mainPage"
+            app:destination="@id/mainPage" />
+    </fragment>
+    <fragment
+        android:id="@+id/meetingPage"
+        android:name="com.example.invoicesep.fragments.MeetingPage"
+        android:label="MeetingPage" >
+        <action
+            android:id="@+id/action_meetingPage_to_mainPage"
             app:destination="@id/mainPage" />
     </fragment>
 </navigation>

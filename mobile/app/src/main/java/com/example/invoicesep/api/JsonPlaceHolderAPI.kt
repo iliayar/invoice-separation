@@ -3,17 +3,19 @@ package com.example.invoicesep.api
 import com.example.invoicesep.model.InvoiceSeparation
 import com.example.invoicesep.model.User
 import com.example.invoicesep.model.UserLogin
+import okhttp3.ResponseBody
 import retrofit2.Response
 import retrofit2.http.*
+import java.util.*
 
 
 interface JsonPlaceHolderApi {
-    // TODO: New window for login and register
     @POST("user/register")
-    suspend fun registerUser(@Body userLogin: UserLogin): Response<Unit>
+    suspend fun registerUser(@Body userLogin: UserLogin): Response<ResponseBody>
 
+    // TODO: Hide the password
     @POST("user/login")
-    suspend fun loginUser(@Body userLogin: UserLogin): Response<String>
+    suspend fun loginUser(@Body userLogin: UserLogin): Response<ResponseBody>
 
     @POST("contacts")
     suspend fun postContacts(
@@ -32,7 +34,5 @@ interface JsonPlaceHolderApi {
 
     @GET("debt")
     suspend fun getDebt(
-            @Header("X-Api-Key") apiKey: String,
-            @Query("user") user: String
-    ): Response<Int>
+        @Header("X-Api-Key") apiKey: String, @Query("user") user: String): Response<Int>
 }

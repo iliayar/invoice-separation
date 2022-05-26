@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/gradient_register">
+
+    <FrameLayout
+        android:id="@+id/enter_frame"
+        style="@style/RegisterFrames"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+
+    <EditText
+        android:id="@+id/enter_login"
+        style="@style/EnterText"
+        android:hint="@string/enter_your_login"
+        android:layout_marginTop="100dp"
+        app:layout_constraintBottom_toTopOf="@id/enter_password"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/enter_frame" />
+
+    <EditText
+        android:id="@+id/enter_password"
+        style="@style/EnterText"
+        android:hint="@string/enter_your_password"
+        app:layout_constraintBottom_toTopOf="@id/enter"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/enter_login"/>
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/enter"
+        style="@style/RegisterButtons"
+        android:backgroundTint="#AB47DF"
+        android:text="@string/enter"
+        android:layout_marginTop="100dp"
+        app:layout_constraintBottom_toTopOf="@id/register"
+        app:layout_constraintEnd_toEndOf="@id/enter_frame"
+        app:layout_constraintStart_toStartOf="@+id/enter_frame"
+        app:layout_constraintTop_toBottomOf="@+id/enter_password" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/register"
+        style="@style/RegisterButtons"
+        android:backgroundTint="#58A8E1"
+        android:text="@string/register"
+        app:layout_constraintBottom_toBottomOf="@+id/enter_frame"
+        app:layout_constraintEnd_toEndOf="@+id/enter_frame"
+        app:layout_constraintStart_toStartOf="@+id/enter_frame"
+        app:layout_constraintTop_toBottomOf="@+id/enter" />
+</androidx.constraintlayout.widget.ConstraintLayout>

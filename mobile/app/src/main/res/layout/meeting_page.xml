@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <EditText
+        android:id="@+id/sum"
+        style="@style/EnterText"
+        android:hint="@string/enter_sum"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/name"/>
+
+    <EditText
+        android:id="@+id/name"
+        style="@style/EnterText"
+        android:hint="@string/enter_name"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/sum"
+        app:layout_constraintBottom_toTopOf="@id/add"/>
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/add"
+        style="@style/RegisterButtons"
+        android:backgroundTint="#90EA69"
+        android:text="@string/join_party"
+        app:layout_constraintBottom_toTopOf="@+id/start_meeting"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/name" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@id/start_meeting"
+        style="@style/RegisterButtons"
+        android:backgroundTint="#63A9F3"
+        android:text="@string/start_party"
+        app:layout_constraintBottom_toTopOf="@id/party_members"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/add" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/party_members"
+        android:layout_width="match_parent"
+        android:layout_height="300dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">InvoiceSep</string>
     <string name="name">Name</string>
-    <string name="invoice">invoice</string>
+    <string name="debt">debt</string>
     <string name="organise">New \n meeting</string>
     <string name="add_contact">Add \ contacts</string>
     <string name="view_contacts">Get \n contacts</string>
@@ -10,4 +10,14 @@
     <string name="enter_your_login">Enter your login</string>
     <string name="enter_your_password">Enter your password</string>
     <string name="enter">Enter</string>
+    <string name="register">Register</string>
+    <string name="create_your_login">Create your login</string>
+    <string name="create_your_password">Create your password</string>
+    <string name="enter_the_name_of_contact">Enter the name of contact</string>
+    <string name="find_user">Find user</string>
+    <string name="get_back">get back</string>
+    <string name="join_party">Join party</string>
+    <string name="enter_name">Enter name</string>
+    <string name="enter_sum">Enter sum</string>
+    <string name="start_party">Start party</string>
 </resources>
