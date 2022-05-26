@@ -64,7 +64,7 @@ public class InvoiceSeparationApiController implements InvoiceSeparationApi {
             return new ResponseEntity<Void>(HttpStatus.BAD_REQUEST);
         }
 
-        Integer debtAmount = (int) Math.ceil(body.getInvoice().doubleValue() / body.getUsers().size());
+        Integer debtAmount = (int) Math.ceil(body.getInvoice().doubleValue() / (body.getUsers().size() + 1));
 
         for (String username : body.getUsers()) {
             User toUser = userRepository.findByUsername(username);

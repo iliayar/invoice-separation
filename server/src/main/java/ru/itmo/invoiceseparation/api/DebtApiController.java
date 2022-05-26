@@ -85,24 +85,24 @@ public class DebtApiController implements DebtApi {
         return new ResponseEntity<Integer>(getDebt(fromUser, toUser), HttpStatus.OK);
     }
 
-    public ResponseEntity<Void> debtPost(UsernameRequest body, String xApiKey) {
+    public ResponseEntity<Integer> debtPost(UsernameRequest body, String xApiKey) {
         ApiToken token = apiTokenRepository.findById(xApiKey);
         if (token == null) {
-            return new ResponseEntity<Void>(HttpStatus.UNAUTHORIZED);
+            return new ResponseEntity<Integer>(HttpStatus.UNAUTHORIZED);
         }
 
         User fromUser = token.getUser();
         if (fromUser == null) {
-            return new ResponseEntity<Void>(HttpStatus.UNAUTHORIZED);
+            return new ResponseEntity<Integer>(HttpStatus.UNAUTHORIZED);
         }
 
         User toUser = userRepository.findByUsername(body.getUsername());
         if (toUser == null) {
-            return new ResponseEntity<Void>(HttpStatus.NOT_FOUND);
+            return new ResponseEntity<Integer>(HttpStatus.NOT_FOUND);
         }
 
         if (fromUser.getUsername().equals(toUser.getUsername())) {
-            return new ResponseEntity<Void>(HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<Integer>(HttpStatus.BAD_REQUEST);
         }
 
         Integer debtAmount = getDebt(fromUser, toUser);
@@ -110,10 +110,10 @@ public class DebtApiController implements DebtApi {
             debtRepository.deleteByFromAndTo(toUser, fromUser);
             debtRepository.deleteByFromAndTo(fromUser, toUser);
         } else {
-            return new ResponseEntity<Void>(HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<Integer>(HttpStatus.BAD_REQUEST);
         }
 
-        return new ResponseEntity<Void>(HttpStatus.OK);
+        return new ResponseEntity<Integer>(debtAmount, HttpStatus.OK);
     }
 
 }

@@ -21,7 +21,7 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.validation.Valid;
 import javax.validation.constraints.*;
 import java.util.List;
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2022-04-21T14:27:58.516+03:00")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2022-05-26T02:26:17.516+03:00")
 
 @Validated
 @Api(value = "invoice-separation", description = "the invoice-separation API")
@@ -33,8 +33,9 @@ public interface InvoiceSeparationApi {
     }, tags={  })
     @ApiResponses(value = { 
         @ApiResponse(code = 200, message = "Ok"),
-        @ApiResponse(code = 403, message = "Unauthorized"),
-        @ApiResponse(code = 404, message = "No such user. If any user in list is missing") })
+        @ApiResponse(code = 400, message = "One of: * Invoice is negative number * List of users is empty "),
+        @ApiResponse(code = 401, message = "You are not logged in"),
+        @ApiResponse(code = 404, message = "One of: * One or more users in list not found * Current user is presented in the list ") })
     @RequestMapping(value = "/invoice-separation",
         method = RequestMethod.POST)
     ResponseEntity<Void> invoiceSeparationPost(@ApiParam(value = "" ,required=true )  @Valid @RequestBody InvoiceSeparationRequest body,@ApiParam(value = "" ,required=true) @RequestHeader(value="X-Api-Key", required=true) String xApiKey);
