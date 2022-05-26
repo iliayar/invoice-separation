@@ -15,11 +15,11 @@ import retrofit2.Response
 
 class LogicViewModel : ViewModel() {
 
-    val state: MutableLiveData<State<Unit>> by lazy { MutableLiveData() }
-
-    val contacts: MutableLiveData<State<List<String>>> by lazy { MutableLiveData() }
-
-    var token : String = "f11559a3-2a45-4cdb-a0d7-e9042b7e447a"
+    val state: MutableLiveData<State> by lazy { MutableLiveData() }
+    var contacts: MutableList<String> = mutableListOf()
+    var token: String = "token"
+    var name: String = "name"
+    var debt: Int = 0
 
     fun <T> apiFun(
         responseSupplier: suspend () -> Response<T>,
@@ -28,6 +28,7 @@ class LogicViewModel : ViewModel() {
     ) {
         viewModelScope.launch {
             try {
+                state.value = Loading()
                 val response = responseSupplier()
                 if (response.isSuccessful) {
                     onSuccess(response)
@@ -41,33 +42,4 @@ class LogicViewModel : ViewModel() {
             }
         }
     }
-
-    @OptIn(ExperimentalSerializationApi::class)
-    fun fetchContacts() {
-        apiFun(
-            { ApiApp.instance.jsonPlaceHolderApi.getContacts(token) },
-            {
-                contacts.value = Success(it.body())
-            },
-            {
-                contacts.value = Failure(it.code())
-            })
-    }
-
-//    fun getDebt() {
-//        apiFun(
-//            { ApiApp.instance.jsonPlaceHolderApi.getDebt(token)}
-//        )
-//    }
-
-    @OptIn(ExperimentalSerializationApi::class)
-    fun postContacts(users: List<String>) {
-        apiFun({
-            ApiApp.instance.jsonPlaceHolderApi.postContacts(
-                token,
-                users
-            )
-        })
-    }
-
 }

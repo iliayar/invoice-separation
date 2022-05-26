@@ -28,11 +28,11 @@
         app:layout_constraintTop_toTopOf="@id/frame" />
 
     <TextView
-        android:id="@+id/invoice"
+        android:id="@+id/debt"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="50dp"
-        android:text="@string/invoice"
+        android:text="@string/debt"
         android:textColor="#322E2E"
         android:textSize="30sp"
         android:textStyle="italic"

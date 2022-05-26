@@ -12,9 +12,23 @@
         <item name="android:background">@drawable/action_button</item>
     </style>
 
-    <style name="EnterText">
-        <item name="android:textSize">30sp</item>
+    <style name="RegisterButtons" parent="ActionButtons">
+        <item name="android:layout_width">250dp</item>
+        <item name="android:layout_height">50dp</item>
+        <item name="android:textSize">20sp</item>
         <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="RegisterFrames" parent="ActionButtons">
+        <item name="android:layout_width">370dp</item>
+        <item name="android:layout_height">600dp</item>
+        <item name="android:backgroundTint">@color/white</item>
+    </style>
+
+    <style name="EnterText">
+        <item name="android:layout_width">300dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">25sp</item>
         <item name="android:textColor">@color/black</item>
     </style>
 
@@ -22,4 +36,5 @@
         <item name="cornerFamily">rounded</item>
         <item name="cornerSize">50%</item>
     </style>
+
 </resources>

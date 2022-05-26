@@ -5,55 +5,40 @@
     android:layout_height="match_parent"
     android:background="@drawable/gradient_register">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/enter_your_login"
-        style="@style/EnterText"
-        app:layout_constraintBottom_toTopOf="@+id/enter_login"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginStart="30dp" />
-
-    <EditText
-        android:id="@+id/enter_login"
-        android:layout_width="300dp"
-        android:layout_height="wrap_content"
-        app:layout_constraintBottom_toTopOf="@id/enter_password"
+    <FrameLayout
+        android:id="@+id/register_frame"
+        style="@style/RegisterFrames"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
+    <EditText
+        android:id="@+id/register_login"
         style="@style/EnterText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/enter_your_password"
-        app:layout_constraintBottom_toTopOf="@+id/enter_password"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/enter_login"
-        android:layout_marginStart="30dp"/>
+        android:hint="@string/create_your_login"
+        app:layout_constraintEnd_toEndOf="@+id/register_frame"
+        app:layout_constraintStart_toStartOf="@+id/register_frame"
+        app:layout_constraintTop_toTopOf="@+id/register_frame"
+        app:layout_constraintBottom_toTopOf="@id/register_password"/>
 
     <EditText
-        android:id="@+id/enter_password"
-        android:layout_width="300dp"
-        android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/enter_login"/>
+        android:id="@+id/register_password"
+        style="@style/EnterText"
+        android:hint="@string/create_your_password"
+        app:layout_constraintEnd_toEndOf="@+id/register_frame"
+        app:layout_constraintStart_toStartOf="@+id/register_frame"
+        app:layout_constraintTop_toBottomOf="@+id/register_login"
+        app:layout_constraintBottom_toTopOf="@id/register_button"/>
 
     <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/enter"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:backgroundTint="#1BEAD6"
-        style="@style/ActionButtons"
-        android:textSize="15sp"
-        android:textStyle="bold"
-        android:text="@string/enter"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/enter_password"
-        android:layout_marginEnd="50dp"/>
+        android:id="@+id/register_button"
+        style="@style/RegisterButtons"
+        android:backgroundTint="#7EE6B9"
+        android:text="@string/register"
+        app:layout_constraintBottom_toBottomOf="@+id/register_frame"
+        app:layout_constraintEnd_toEndOf="@+id/register_frame"
+        app:layout_constraintStart_toStartOf="@+id/register_frame"
+        app:layout_constraintTop_toBottomOf="@+id/register_password" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
